@@ -1,46 +1,36 @@
 // home.js
 import React, {Component} from 'react';
 import { View, Text, Button } from 'react-native';
-import { connect } from 'react-redux';
-import { add, remove } from '../actions/index';
+import { TodoScreen } from './Todo';
+import { createStackNavigator } from 'react-navigation';
 
-  export class Home extends Component {
-    render() {
-      const { todos, add, remove } = this.props
-      return (
-        <View>
-          <Text style={{marginTop: 200}}>To Do Example</Text>
-
-          <Button
-            onPress={() => add(1)}
-            title="Add"
-          />
-
-          <Button
-            onPress={() => remove()}
-            title="Remove"
-          />
-
-          {todos.map((todo, index) => {
-            return <Text key={index}>{todo}</Text>
-          })}
-        </View>
-      );
-    }
+export class HomeScreen extends Component {
+  gotoTodoScreen () {
+    const { navigation } = this.props;
+    navigation.navigate('Todo');
   }
+  render() {
+    return (
+      <View>
+        <Button
+          onPress={() => this.gotoTodoScreen()}
+          title="Go to Todo"
+        />
+      </View>
+    );
+  }
+}
 
-const mapStateToProps = state => ({
-  todos: state.todos,
-});
-
-const mapDispatchToProps = {
-  add,
-  remove,
-};
-
-const Container = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
-
-export default Container;
+// import { Provider } from 'react-redux';
+// import { store } from '../stores/index';
+//
+// export class Home extends Component {
+//   render() {
+//     return (
+//       <Provider store={store}>
+//         <Home />
+//       </Provider>
+//     )
+//   }
+// }
+//
